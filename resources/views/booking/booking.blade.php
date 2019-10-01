@@ -22,20 +22,12 @@
 	</div>
 
 	<div class="container">
-<p class="text-center">Information</p>
-</div>
+<p class="text-center">Select your game</p>
 <hr class="hr">
+</div>
 
-	<div class="container">
-		<center>
-			 <form>
-  <div class="form-group row">
-    <label for="colFormLabelSm" class="col-sm-2 col-form-label col-form-label-sm">First Name: </label>
-    <div class="col-sm-4">
-      <input type="email" class="form-control form-control-sm" id="colFormLabelSm" placeholder="Enter your first name">
-    </div>
-  		</center>
-	</div>
+
+
 </body>
 <style>
 	body {
@@ -112,11 +104,15 @@
 		line-height: 80px;
 	}
 	.hr {
-		width: 50%;
+		width: 80%;
 		border: none;
 		height: 1px;
 		background-color: #fff;
 	}
+	#btn {
+		width: 50%;
+	}
+	
 
 
 </style>

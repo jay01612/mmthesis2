@@ -25,3 +25,5 @@ Route::get('/login', 'mainController@login');
 Route::get('/user', 'mainController@user');
 
 Route::get('/booking', 'mainController@booking');
+
+Route::get('/info', 'mainController@info');
