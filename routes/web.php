@@ -23,3 +23,5 @@ Route::get('/signup', 'mainController@signup');
 Route::get('/login', 'mainController@login');
 
 Route::get('/user', 'mainController@user');
+
+Route::get('/booking', 'mainController@booking');

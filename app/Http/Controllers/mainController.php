@@ -17,5 +17,9 @@ class mainController extends Controller
     public function user(){
     	return view('user');
     }
+
+    public function booking(){
+    	return view('/booking/booking');
+    }
 }
 
