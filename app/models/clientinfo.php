@@ -12,7 +12,7 @@ class bookings extends Model
 
     public static function getInfo(){
 
-    	return bookings::get();	
+    	return booking_table::get();	
     }
 
     public static function clientBook($data) {
@@ -41,6 +41,7 @@ class bookings extends Model
     		'b.theme_id as theme',
     		'b.maxpax as pax',
     		'b.venue as location'
+            
     	)
     	->join('payment_table as b', 'a.game_id', '=', 'b.id')
     	->where('a.is_verified', 1)
