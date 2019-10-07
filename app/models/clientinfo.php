@@ -12,18 +12,21 @@ class bookings extends Model
 
     public static function getInfo(){
 
-    	return booking_table::get();	
+    	return client_info::get();	
     }
 
     public static function clientBook($data) {
 
-    	return bookings::insert([
+    	return client_info::insert([
     			'fname' => $data->firstname,
     			'lname' => $data->lastname,
     			'mobile_number' => $data->mobilenumber,
     			'verification_number' => $data->verificationnumber,
     			'email' => $data->email
     	]);
+    }
+
+        
     }
 
     public static function tbl_client_info() {
