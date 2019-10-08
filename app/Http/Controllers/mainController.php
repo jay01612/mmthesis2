@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use app\models\clientinfo;
 use app\models\booking;
 use app\model\payment;
+use app\models\admin;
 
 
 class mainController extends Controller
@@ -70,8 +71,7 @@ class mainController extends Controller
             return response()->json([
                 'response' => false,
             ])
-         }
-
+        }
     }
 
     public function addBooking(Request $request){
@@ -79,10 +79,12 @@ class mainController extends Controller
         if ($addbooking){
             return response()->json([
                 'success' => true
+                'message' => "Please check you email for billings"
             ]);
         }else{
             return response() ->json([
-                'success' =? false
+                'success' => false
+                'message' => 'There is someting wrong!'
             ])
         } 
     }
@@ -93,16 +95,67 @@ class mainController extends Controller
         $addPayment = payment::clientPayment($request);
         if ($addPayment){
             return response()->json([
-                'success' => true
+                'response' => true
             ]);
         }else{
             return response() ->json([
-                'success' => false
+                'response' => false
             ])
         } 
     }
 
     public function summaryPayment()
+
+    //admin functions
+
+    public function addAdmin()
+
+    public static function addUserAdmin(Request $request){
+        $addUserAdmin = admin::addAdmin($request);
+        if($addUserAdmin){
+            return response()->json([
+                'response' => true
+                'message' => "Successfully added"
+            ]);
+        }else{
+            return response()->json([
+                'response' => false
+                'message' => "There is something wrong"
+            ]);
+        }
+    }
+    
+
+    public static function editUserAdmin(Request $request){
+        $editUserAdmin = admin::editUser($request);
+        if($editUserAdmin){
+            return response()->json([
+                'response' => true
+                'message' => "Successfully edited"
+            ]);
+        }else{
+            return response() ->json([
+                'response' => false
+                'message' => "there is something wrong"
+            ]);
+        }
+    }
+
+     public static function deleteUserAdmin(Request $request){
+        $deleteUserAdmin = admin::deleteUser($request);
+        if($deleteUserAdmin){
+            return response() ->json([
+                'response' => true
+                'message' => "Succcessfully deleted"
+            ]);
+        }else{
+            return response() ->json([
+                'response' => false
+                'message' => "There is an error"
+            ]);
+        }    
+    }
+
 }
 
 

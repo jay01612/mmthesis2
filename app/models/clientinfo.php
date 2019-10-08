@@ -23,10 +23,8 @@ class bookings extends Model
     			'mobile_number' => $data->mobilenumber,
     			'verification_number' => $data->verificationnumber,
     			'email' => $data->email
-    	]);
-    }
-
-        
+    	   ]);
+        }
     }
 
     public static function tbl_client_info() {
@@ -69,8 +67,6 @@ class bookings extends Model
     	)
     	->join('payment_table as b', 'a.game_id', '=', 'b.id')
     	->where('a.is_verified', 1 -> $data->id)
-    	->get();->first();
-    }
-
-    		       
+    	->get()->first();
+    }		       
 }
