@@ -25,5 +25,9 @@ class mainController extends Controller
     public function info(){
     	return view('/booking/info');
     }
+
+    public function summary(){
+        return view('/booking/summary');
+    }
 }
 

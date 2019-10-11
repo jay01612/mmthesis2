@@ -11,19 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', 'mainController@user');
+
 Route::get('test', 'booking@hello');
-
-
 
 Route::get('/signup', 'mainController@signup');
 
 Route::get('/login', 'mainController@login');
 
-Route::get('/user', 'mainController@user');
-
 Route::get('/booking', 'mainController@booking');
 
 Route::get('/info', 'mainController@info');
+
+Route::get('/summary', 'mainController@summary');

@@ -40,56 +40,10 @@
 	<div class="container-fluid text-center">
 		<img src="mmlogo.png" width="200" height="200" class="img-fluid">
 		<div class="progress">
-  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 
-		<div class="col-sm-12 mt-5">
-			<h1 class="display-5 text-white">CUSTOMER INFORMATION</h1>
-			<hr class="my-1 mb-5">
-		</div>
-
-
-		<div class="row">
-		
-				<div class="col-sm-3"></div>
-				<div class="col-sm-6">
-				<form class="form-group text-white">
-					<label for="fn">First Name:</label>
-					<input type="text" name="firstName" class="form-control w-50 mx-auto">
-				</div>
-				</form>
-				<div class="col-sm-3"></div>
-
-				<div class="col-sm-3"></div>
-				<div class="col-sm-6">
-				<form class="form-group text-white">
-					<label for="ln">Last Name:</label>
-					<input type="text" name="lastName" class="form-control w-50 mx-auto">
-				</div>
-				</form>
-				<div class="col-sm-3"></div>
-
-				<div class="col-sm-3"></div>
-				<div class="col-sm-6">
-				<form class="form-group text-white">
-					<label for="mn">Mobile Number:</label>
-					<input type="text" name="mobileNumber" class="form-control w-50 mx-auto">
-				</div>
-				</form>
-				<div class="col-sm-3"></div>
-
-				<div class="col-sm-3"></div>
-				<div class="col-sm-6">
-				<form class="form-group text-white">
-					<label for="email">E-Mail:</label>
-					<input type="text" name="eMail" class="form-control w-50 mx-auto">
-				</div>
-				</form>
-				<div class="col-sm-3"></div>
-				<a href="{{ url('/summary') }}" class="btn btn-primary btn-lg mt-5 mx-auto w-25">Next</a>
-		
-		</div>
-	</div>
+	</div>	
 	<script>
 	</script>
 </body>
