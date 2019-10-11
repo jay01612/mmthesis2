@@ -12,18 +12,19 @@ class bookings extends Model
 
     public static function getInfo(){
 
-    	return booking_table::get();	
+    	return client_info::get();	
     }
 
     public static function clientBook($data) {
 
-    	return bookings::insert([
+    	return client_info::insert([
     			'fname' => $data->firstname,
     			'lname' => $data->lastname,
     			'mobile_number' => $data->mobilenumber,
     			'verification_number' => $data->verificationnumber,
     			'email' => $data->email
-    	]);
+    	   ]);
+        }
     }
 
     public static function tbl_client_info() {
@@ -66,8 +67,6 @@ class bookings extends Model
     	)
     	->join('payment_table as b', 'a.game_id', '=', 'b.id')
     	->where('a.is_verified', 1 -> $data->id)
-    	->get();->first();
-    }
-
-    		       
+    	->get()->first();
+    }		       
 }
