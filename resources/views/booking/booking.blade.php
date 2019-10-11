@@ -95,13 +95,22 @@
 		</div>
 	</form>
 </div>
-<a href="{{ url('/info') }}" class="btn btn-primary btn-lg mt-5 mx-auto w-25">Next</a>
+<a href="{{ url('/info') }}" class="btn btn-primary btn-lg mt-5 mx-auto w-25" id="nextBtn">Next</a>
 </div>
 </div>
 </div>
 
 
-	<script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(document).on('click', '#nextBtn', function(){
+				var game = $('#theme').val();
+				var dateStart = $('#dateStart').val();
+				var timeStart =$('timeStart').val();
+
+				console.log(game + " " + dateStart + " " + timeStart);
+			});
+		});
 	</script>
 </body>
 </html>

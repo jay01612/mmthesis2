@@ -31,15 +31,16 @@ class mainController extends Controller
     	return view('/booking/info');
     }
 
-<<<<<<< HEAD
+
     public function summary(){
         return view('/booking/summary');
     }
-=======
+
     public function book(){
         $getClient = clientinfo::getClient();
         return view('booking')->with('in', $getClient);
     }
+}
 
     //GETTING CLIENTS BOOKING INFO --
 
@@ -75,7 +76,7 @@ class mainController extends Controller
 
             return response()->json([
                 'response' => false,
-            ])
+            ]);
         }
     }
 
@@ -84,13 +85,13 @@ class mainController extends Controller
         if ($addbooking){
             return response()->json([
                 'success' => true
-                'message' => "Please check you email for billings"
+                'message' => "Please check your email for billings"
             ]);
         }else{
             return response() ->json([
                 'success' => false
                 'message' => 'There is someting wrong!'
-            ])
+            ]);
         } 
     }
 
@@ -103,9 +104,9 @@ class mainController extends Controller
                 'response' => true
             ]);
         }else{
-            return response() ->json([
+            return response()->json([
                 'response' => false
-            ])
+            ]);
         } 
     }
 

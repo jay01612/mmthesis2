@@ -11,15 +11,11 @@
 |
 */
 
-<<<<<<< HEAD
-=======
-Route::get('/', function () {
-    return view('welcome');
-});
-Route::get('test', 'mainController@booking');
->>>>>>> 8fdf0dadfae918fffabb0aecd5be5672a65bb96e
+
 
 Route::get('/', 'mainController@user');
+
+Route::get('test', 'mainController@booking');
 
 Route::get('test', 'booking@hello');
 
