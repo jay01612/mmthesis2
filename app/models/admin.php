@@ -14,7 +14,7 @@ class admin extends Model
     	return admin_table::get();	
     }
 
-    public function addAdmin($data){
+    public function addAdmin($data, $password){
 
     	return admin::insert([
     		'fnmae' => $data->firstname,

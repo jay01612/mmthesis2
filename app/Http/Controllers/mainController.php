@@ -40,18 +40,18 @@ class mainController extends Controller
         $getClient = clientinfo::getClient();
         return view('booking')->with('in', $getClient);
     }
-}
+
 
     //GETTING CLIENTS BOOKING INFO --
 
-    public function addrefnumber (Request $request){
+    public function addBookingInfo (Request $request){
 
         $newDate = str_replace('-', '', $request->date);
         $newTime = str_replace(':', '', $request->time);
 
         $referenceNumber = $request->game . $newDate . $newTime;
 
-        $query = booking::getRefId($request, $referenceNumber);
+        $query = booking::getBookingInfo($request, $referenceNumber);
         if($query){
             return response()->json([
                 'response' => true,
@@ -66,30 +66,17 @@ class mainController extends Controller
         }
     }
 
-    public function addBookingInfo (Request $request){
-        $addBookingInfo = booking::getBookingInfo($request);
-         if($addBookingInfo){
-            return response() -> json([
-                'response' =>true,
-            ]);
-         }else{
-
-            return response()->json([
-                'response' => false,
-            ]);
-        }
-    }
 
     public function addBooking(Request $request){
         $addBooking = clientinfo::clientbook($request);
         if ($addbooking){
             return response()->json([
-                'success' => true
+                'success' => true,
                 'message' => "Please check your email for billings"
             ]);
         }else{
             return response() ->json([
-                'success' => false
+                'success' => false,
                 'message' => 'There is someting wrong!'
             ]);
         } 
@@ -110,38 +97,46 @@ class mainController extends Controller
         } 
     }
 
-    public function summaryPayment()
+    //public function summaryPayment()
 
     //admin functions
 
-    public function addAdmin()
+    //public function addAdmin()
 
     public static function addUserAdmin(Request $request){
-        $addUserAdmin = admin::addAdmin($request);
+
+        $firstname = str_shuffle($request->fname);
+        $lastname = str_shuffle($request->lname);
+
+        $password = $request-> $firstname . $lastname;
+
+
+        $addUserAdmin = admin::addAdmin($request, $password);
         if($addUserAdmin){
             return response()->json([
-                'response' => true
+                'response' => true,
+                'data' => $query,
                 'message' => "Successfully added"
             ]);
         }else{
             return response()->json([
-                'response' => false
+                'response' => false,
+                'data' => array(),
                 'message' => "There is something wrong"
             ]);
         }
     }
-    
 
     public static function editUserAdmin(Request $request){
         $editUserAdmin = admin::editUser($request);
         if($editUserAdmin){
             return response()->json([
-                'response' => true
+                'response' => true,
                 'message' => "Successfully edited"
             ]);
         }else{
             return response() ->json([
-                'response' => false
+                'response' => false,
                 'message' => "there is something wrong"
             ]);
         }
@@ -151,18 +146,16 @@ class mainController extends Controller
         $deleteUserAdmin = admin::deleteUser($request);
         if($deleteUserAdmin){
             return response() ->json([
-                'response' => true
+                'response' => true,
                 'message' => "Succcessfully deleted"
             ]);
         }else{
             return response() ->json([
-                'response' => false
+                'response' => false,
                 'message' => "There is an error"
             ]);
         }    
-    }
-
->>>>>>> 8fdf0dadfae918fffabb0aecd5be5672a65bb96e
+    }//>>>>>>> 8fdf0dadfae918fffabb0aecd5be5672a65bb96e
 }
 
 
