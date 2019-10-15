@@ -21,11 +21,11 @@ class BookingTable extends Migration
             $table->date('book_date');
             $table->time('book_time');
 
-            $table->bigInteger('theme_id')->unsigned();;
+            $table->bigInteger('theme_id')->unsigned();
             $table->foreign('theme_id')->references('id')->on('themes');
 
             $table->string('maxpax');
-            $table->string('venue');
+            $table->string('venue')->nullable();
 
             $table->tinyInteger('is_booked')->default(0); 
             $table->tinyInteger('is_cancelled')->default(0);    

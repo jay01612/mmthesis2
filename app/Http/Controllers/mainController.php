@@ -155,7 +155,7 @@ class mainController extends Controller
                 'message' => "There is an error"
             ]);
         }    
-    }//>>>>>>> 8fdf0dadfae918fffabb0aecd5be5672a65bb96e
+    }
 }
 
 

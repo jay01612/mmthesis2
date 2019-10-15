@@ -55,7 +55,7 @@
 				<div class="col-sm-6">
 				<form class="form-group text-white">
 					<label for="fn">First Name:</label>
-					<input type="text" name="firstName" class="form-control w-50 mx-auto">
+					<input type="text" name="firstName" id="firstName" class="form-control w-50 mx-auto">
 				</div>
 				</form>
 				<div class="col-sm-3"></div>
@@ -64,7 +64,7 @@
 				<div class="col-sm-6">
 				<form class="form-group text-white">
 					<label for="ln">Last Name:</label>
-					<input type="text" name="lastName" class="form-control w-50 mx-auto">
+					<input type="text" name="lastName" id="lastName" class="form-control w-50 mx-auto">
 				</div>
 				</form>
 				<div class="col-sm-3"></div>
@@ -73,7 +73,7 @@
 				<div class="col-sm-6">
 				<form class="form-group text-white">
 					<label for="mn">Mobile Number:</label>
-					<input type="text" name="mobileNumber" class="form-control w-50 mx-auto">
+					<input type="text" name="mobileNumber" id="mobileNumber" class="form-control w-50 mx-auto">
 				</div>
 				</form>
 				<div class="col-sm-3"></div>
@@ -82,15 +82,23 @@
 				<div class="col-sm-6">
 				<form class="form-group text-white">
 					<label for="email">E-Mail:</label>
-					<input type="text" name="eMail" class="form-control w-50 mx-auto">
+					<input type="text" name="eMail" id="eMail" class="form-control w-50 mx-auto">
 				</div>
 				</form>
 				<div class="col-sm-3"></div>
-				<a href="{{ url('/summary') }}" class="btn btn-primary btn-lg mt-5 mx-auto w-25">Next</a>
+				<a href="" class="btn btn-primary btn-lg mt-5 mx-auto w-25" id="next">Next</a>
 		
 		</div>
 	</div>
 	<script>
+		$(document).ready(function(){
+			$(document).on('click', '#next', function(){
+				var firstName = $('#firstName').val();
+				var lastName = $('#lastName').val();
+				var mobileNumber = $('#mobileNumber').val();
+				var eMail = $('#eMail').val();
+			});
+		});
 	</script>
 </body>
 </html>

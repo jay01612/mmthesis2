@@ -22,9 +22,9 @@
 			border-color: red;
 			width: 50%;
 		}
-		#theme-1 {
+		/*#theme-1 {
 			display: none;
-		}
+		}*/
 		h1 {
 			letter-spacing: 0.1em;
 		}
@@ -37,8 +37,36 @@
   <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 
+	<div class="col-md-12">
+		<h1 class="display-5 text-white ">SELECT YOUR THEME</h1>
+		<hr class="my-1">
+	</div>
+	<br/>
+	<div class="col-md-12">
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<select class="form-control" id="theme">
+					<option value="" class="active">SELECT</option>
+					<option value="1">Murder at the Mansion</option>
+					<option value="2">Revenge at the Reunion</option>
+				</select>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+		<br/>
+		<div class="row">
+			<div id="holder">
+				<div class="col-md-12 text-center" id="imageHolder">
+					<!-- <img src="11.jpg" width="500" height="500" class="img-fluid" id="theme-1"> -->
+					<!-- <img src="" id="image" width="500" height="500" class="img-fluid"/> -->
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="row mt-5">
-		<div class="col-sm-12">
+		<!-- <div class="col-sm-12">
 			<h1 class="display-5 text-white ">SELECT YOUR THEME</h1>
 			<hr class="my-1">
 		</div>
@@ -54,61 +82,102 @@
 			</form>
 		</div>
 		<div class="col-sm-2"></div>
-		<div class="col-sm-6 text-center mt-5">
-			<img src="11.jpg" width="500" height="500" class="img-fluid" id="theme-1">
-		</div>
+		<div id="holder">
+			<div class="col-sm-6 text-center mt-5" id="imageHolder">
+			</div>
+		</div> -->
 		<div class="col-sm-4">
 			<h1 class="display-5 text-white">DATE</h1>
 			<hr class="my-1"><br/>
-			<form>
+			<!-- <form> -->
 				<div class="form-group text-white mb-5">
 					<input class="form-control" type="date" id="dateStart"/>
 				</div>
-			</form>
+			<!-- </form> -->
 		</div>
 		<div class="col-sm-4"></div>
 		<div class="col-sm-4">
 			<h1 class="display-5 text-white">TIME</h1>
 			<hr class="my-1"><br/>
-			<form>
+			<!-- <form> -->
 				<div class="form-group">
 					<input class="form-control" type="time" id="timeStart"/>
-			</form>
+			<!-- </form> -->
 		</div>
 </div>
 <div class="col-sm-4">
 	<h1 class="display-5 text-white">GROUP SIZE</h1>
 	<hr class="my-1"><br/>
-	<form>
+	<!-- <form> -->
 		<div class="form-group">
 			<input type="text" name="maxPax" id="maxPax" class="form-control"/>
 		</div>
-	</form>
+	<!-- </form> -->
 </div>
 <div class="col-sm-4"></div>
 <div class="col-sm-4">
 	<h1 class="display-5 text-white">VOUCHER CODE</h1>
 	<hr class='my-1'><br/>
-	<form>
+	<!-- <form> -->
 		<div class="form-group">
 			<input type="text" name="voucherCode" id="voucherCode" class="form-control"/>
 		</div>
-	</form>
+	<!-- </form> -->
 </div>
-<a href="{{ url('/info') }}" class="btn btn-primary btn-lg mt-5 mx-auto w-25" id="nextBtn">Next</a>
+<button class="btn btn-primary btn-lg mt-5 mx-auto w-25" id="nextBtn">Next</button>
 </div>
 </div>
 </div>
 
 
 	<script type="text/javascript">
+		console.log("on page done loading");
 		$(document).ready(function(){
+			console.log("on refresh");
 			$(document).on('click', '#nextBtn', function(){
 				var game = $('#theme').val();
 				var dateStart = $('#dateStart').val();
-				var timeStart =$('timeStart').val();
+				var timeStart = $('#timeStart').val();
+				var maxPax = $('#maxPax').val();
 
-				console.log(game + " " + dateStart + " " + timeStart);
+				// console.log(game + " " + dateStart + " " + timeStart);
+
+				if((game == "") || (dateStart === null) || (timeStart === null)){
+					alert("Please fill out the form!");
+				}else{
+					$.ajax({
+						url : "{{ url('api/nextStep') }}",
+						type: "POST",
+						data : {
+							game : game,
+							dateStart : dateStart,
+							timeStart : timeStart,
+							maxPax : maxPax
+						}
+					}).done(function(response){
+						if(response.response){
+							// document.location.replace('{{ url('/info') }}');
+							console.log(response.datas);
+						}
+					});
+				}
+
+			});
+
+			$(document).on('change', '#theme', function(){
+
+				var themes = $('#theme').val();
+
+				if(themes != ''){
+					console.log(themes);
+					if(themes == 't-1'){
+						$('#imageHolder').append('<img src=" {{asset('11.jpg')}} " width="" height="" class="img-fluid" id="theme-1">');
+					}else{
+						$('#imageHolder').remove();
+						$('#holder').append('<div class="col-md-12 text-center" id="imageHolder"></div>');
+
+					}
+				}
 			});
 		});
 	</script>

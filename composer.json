@@ -9,9 +9,11 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "aceraven777/laravel-paymaya": "~1.0",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "psr/log": "~1.0.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
