@@ -16,6 +16,7 @@ class Themes extends Migration
         Schema::create('themes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            
             $table->timestamps();
         });
     }

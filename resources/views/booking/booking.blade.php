@@ -37,7 +37,7 @@
   <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 
-	<div class="col-md-12">
+	<div class="col-md-12"><br>
 		<h1 class="display-5 text-white ">SELECT YOUR THEME</h1>
 		<hr class="my-1">
 	</div>
@@ -46,11 +46,11 @@
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-				<select class="form-control" id="theme">
+				{{-- <select class="form-control" id="theme">
 					<option value="" class="active">SELECT</option>
 					<option value="1">Murder at the Mansion</option>
 					<option value="2">Revenge at the Reunion</option>
-				</select>
+				</select> --}}
 			</div>
 			<div class="col-md-4"></div>
 		</div>
@@ -58,34 +58,13 @@
 		<div class="row">
 			<div id="holder">
 				<div class="col-md-12 text-center" id="imageHolder">
-					<!-- <img src="11.jpg" width="500" height="500" class="img-fluid" id="theme-1"> -->
-					<!-- <img src="" id="image" width="500" height="500" class="img-fluid"/> -->
 				</div>
+
 			</div>
 		</div>
 	</div>
 
 	<div class="row mt-5">
-		<!-- <div class="col-sm-12">
-			<h1 class="display-5 text-white ">SELECT YOUR THEME</h1>
-			<hr class="my-1">
-		</div>
-		<div class="col-sm-4 text-center mt-5">
-			<form>
-				<div class="form-group text-white">
-					<select class="form-control" id="theme">
-						<option class="active">&nbsp;</option>
-						<option value="t-1">Murder at the Mansion</option>
-						<option value="t-2">Revenge at the Reunion</option>
-					</select>
-				</div>
-			</form>
-		</div>
-		<div class="col-sm-2"></div>
-		<div id="holder">
-			<div class="col-sm-6 text-center mt-5" id="imageHolder">
-			</div>
-		</div> -->
 		<div class="col-sm-4">
 			<h1 class="display-5 text-white">DATE</h1>
 			<hr class="my-1"><br/>
@@ -116,12 +95,12 @@
 </div>
 <div class="col-sm-4"></div>
 <div class="col-sm-4">
-	<h1 class="display-5 text-white">VOUCHER CODE</h1>
+	<h1 class="display-5 text-white">VENUE</h1>
 	<hr class='my-1'><br/>
 	<!-- <form> -->
 		<div class="form-group">
-			<input type="text" name="voucherCode" id="voucherCode" class="form-control"/>
-		</div>
+    <textarea class="form-control" id="venue" rows="3" textarea=""></textarea>
+  </div>
 	<!-- </form> -->
 </div>
 <button class="btn btn-primary btn-lg mt-5 mx-auto w-25" id="nextBtn">Next</button>
@@ -131,18 +110,17 @@
 
 
 	<script type="text/javascript">
-		console.log("on page done loading");
 		$(document).ready(function(){
-			console.log("on refresh");
 			$(document).on('click', '#nextBtn', function(){
 				var game = $('#theme').val();
 				var dateStart = $('#dateStart').val();
 				var timeStart = $('#timeStart').val();
 				var maxPax = $('#maxPax').val();
+				var venue = $('#venue').val();
 
 				// console.log(game + " " + dateStart + " " + timeStart);
 
-				if((game == "") || (dateStart === null) || (timeStart === null)){
+				if((game == "") || (dateStart === null) || (timeStart === null) || (maxPax == "") || (venue == "")){
 					alert("Please fill out the form!");
 				}else{
 					$.ajax({
@@ -168,16 +146,25 @@
 
 				var themes = $('#theme').val();
 
-				if(themes != ''){
-					console.log(themes);
-					if(themes == 't-1'){
-						$('#imageHolder').append('<img src=" {{asset('11.jpg')}} " width="" height="" class="img-fluid" id="theme-1">');
-					}else{
-						$('#imageHolder').remove();
-						$('#holder').append('<div class="col-md-12 text-center" id="imageHolder"></div>');
-
-					}
-				}
+				// if(themes != ''){
+				// 	console.log(themes);
+				// 	if(themes == '1'){
+				// 		$('#imageHolder').append('<img src=" {{ asset('11.jpg') }} " width="" height="" class="img-fluid" id="theme-1">');
+							
+				// 		}else if(themes == '2'{
+				// 			$('#imageHolder').append('<img src=" {{ asset('11.jpg') }} " width="" height="" class="img-fluid" id="theme-1">');
+				// 			}else{
+				// 				$('#imageHolder').remove();
+				// 				$('#holder').append('<div class="col-md-12 text-center" id="imageHolder"></div>');		
+				// 			};
+				// 		}		
+				// 	}	
+				// };
+				if(themes == '1'){
+				 		$('#imageHolder').append('<img src=" {{ asset('11.jpg') }} " width="" height="" class="img-fluid" id="theme-1">');
+				 	}
+							
+				
 			});
 		});
 	</script>

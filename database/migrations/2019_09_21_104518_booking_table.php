@@ -25,7 +25,7 @@ class BookingTable extends Migration
             $table->foreign('theme_id')->references('id')->on('themes');
 
             $table->string('maxpax');
-            $table->string('venue')->nullable();
+            $table->string('venue');
 
             $table->tinyInteger('is_booked')->default(0); 
             $table->tinyInteger('is_cancelled')->default(0);    

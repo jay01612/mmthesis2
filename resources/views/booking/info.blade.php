@@ -16,8 +16,7 @@
 	<style>
 		body {
 			font-family: 'Montserrat', sans-serif;
-			padding: 20px;
-		}
+			padding: 20px;		}
 		hr {
 			border-color: red;
 			width: 50%;
@@ -34,6 +33,12 @@
 			text-align: center;
 			border-radius: 10px;
 		}
+		input[type="text"], input[type="number"], input[type="email"] {
+			color: white;
+		}
+		input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    		-webkit-appearance: none;
+    		margin: 0;
 	</style>
 </head>
 <body class="bg-dark">
@@ -48,57 +53,94 @@
 			<hr class="my-1 mb-5">
 		</div>
 
+		<div class="col-sm-12">
+			<div class="row">
+				<div class="col-sm-4"></div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="fn" class="text-white">First Name:</label>
+							<input type="text" name="firstName" class="form-control">
+						</div>
+					</div>
+				<div class="col-sm-4"></div>
+			</div>
 
-		<div class="row">
-		
-				<div class="col-sm-3"></div>
-				<div class="col-sm-6">
-				<form class="form-group text-white">
-					<label for="fn">First Name:</label>
-					<input type="text" name="firstName" id="firstName" class="form-control w-50 mx-auto">
-				</div>
-				</form>
-				<div class="col-sm-3"></div>
+						<div class="row">
+				<div class="col-sm-4"></div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="ln" class="text-white">Last Name:</label>
+							<input type="text" name="lastName" class="form-control">
+						</div>
+					</div>
+				<div class="col-sm-4"></div>
+			</div>
 
-				<div class="col-sm-3"></div>
-				<div class="col-sm-6">
-				<form class="form-group text-white">
-					<label for="ln">Last Name:</label>
-					<input type="text" name="lastName" id="lastName" class="form-control w-50 mx-auto">
-				</div>
-				</form>
-				<div class="col-sm-3"></div>
+						<div class="row">
+				<div class="col-sm-4"></div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="mn" class="text-white">Mobile Number:</label>
+							<input type="number" name="mobileNum" class="form-control">
+						</div>
+					</div>
+				<div class="col-sm-4"></div>
+			</div>
 
-				<div class="col-sm-3"></div>
-				<div class="col-sm-6">
-				<form class="form-group text-white">
-					<label for="mn">Mobile Number:</label>
-					<input type="text" name="mobileNumber" id="mobileNumber" class="form-control w-50 mx-auto">
-				</div>
-				</form>
-				<div class="col-sm-3"></div>
+						<div class="row">
+				<div class="col-sm-4"></div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<label for="email" class="text-white">Email:</label>
+							<input type="email" name="email" class="form-control"><br>
+						</div>
+					</div>
+				<div class="col-sm-4"></div>
+			</div>
 
-				<div class="col-sm-3"></div>
-				<div class="col-sm-6">
-				<form class="form-group text-white">
-					<label for="email">E-Mail:</label>
-					<input type="text" name="eMail" id="eMail" class="form-control w-50 mx-auto">
-				</div>
-				</form>
-				<div class="col-sm-3"></div>
-				<a href="" class="btn btn-primary btn-lg mt-5 mx-auto w-25" id="next">Next</a>
-		
+						<div class="row">
+				<div class="col-sm-4"></div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<a href="{{ url('/booking/summary') }}" class="btn btn-primary w-75 btn-lg">Next</a>
+						</div>
+					</div>
+				<div class="col-sm-4"></div>
+			</div>
+
 		</div>
 	</div>
-	<script>
-		$(document).ready(function(){
-			$(document).on('click', '#next', function(){
-				var firstName = $('#firstName').val();
-				var lastName = $('#lastName').val();
-				var mobileNumber = $('#mobileNumber').val();
-				var eMail = $('#eMail').val();
-			});
-		});
-	</script>
+
+
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$(document).on('click', '#next', function(){
+					var firstName = $('#firstName').val();
+					var lastName = $('#lastName').val();
+					var mobileNumber = $('#mobileNumber').val();
+					var eMail = $('#eMail').val();
+
+					if((firstName == "") || (lastName == "") || (mobileNumber == "") || (eMail == "") ){
+						alert("Please complete the information");
+					}else{
+
+						$.ajax({
+							url : "",
+							method : "",
+							data :{
+								firstName : firstName,
+								lastName : lastName,
+								mobileNumber : mobileNumber,
+								eMail : eMail
+							}
+						}).done(function 
+					}
+				});
+
+			};
+						
+					
+
+		</script>
 </body>
 </html>

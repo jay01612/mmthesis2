@@ -7,6 +7,7 @@ use app\models\clientinfo;
 use app\models\booking;
 use app\model\payment;
 use app\models\admin;
+use app\models\theme;
 
 
 class mainController extends Controller
@@ -81,6 +82,22 @@ class mainController extends Controller
             ]);
         } 
     }
+
+    public function getTheme(){
+        return $theme = theme::getTheme();
+
+        $contents = "";
+
+         foreach($theme as $out){
+          $contents .= "
+              <option id='".$out->id."'>".$out->Theme."</option>
+             ";
+            }
+
+        return $contents;
+
+    }
+
 
     //ADD MODE OF PAYMENT
 
