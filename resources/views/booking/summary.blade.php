@@ -223,7 +223,7 @@
 						  </div>
 						  <div class="card-footer text-dark">
 						     <div class="form-check">
-						     	<input type="radio" name="" class="form-check-input">
+						     	<input type="radio" name="" class="form-check-input" id="payrdb">
 						     	<label class="form-check-label" for="radio1">Click Here</label>
 						     </div>
 						  </div>
@@ -233,13 +233,33 @@
 
 			<div class="btn-next"><br><br>
 				<div class="col-sm-12">
-					<a href="" class="btn btn-primary btn-lg w-25">Next</a>
+					<a href="" class="btn btn-primary btn-lg w-25" id="nextBtn">Next</a>
 				</div>
 			</div>
 
 			</div>	
 	</div>	
-	<script>
+	<script type ="text/javascript">
+		
+		$(document).ready(function(){
+			 $(document).on('click', '#nextBtn', function(){
+			// 	//  //$('#nextBtn').remove();
+			// 	// $('body').append('<div class="col-sm-12"><a href="" class="btn btn-primary btn-lg w-25 text-center" id="nextBtn">Next</a></div>');
+			// 	// var cb = $('#agreementCheck');
+				if (($('#agreementCheck').prop('checked')) || ($('#radio_button').is(':checked'))){
+					// alert("hello");
+					$ajax({
+			            url: "",
+			            type: "",
+			            data: {
+			              
+			            }
+			          })
+   				}else{
+   					alert("please check the terms condition or choose a mode of payment")
+   				}
+			});
+		});
 	</script>
 </body>
 </html>

@@ -19,6 +19,7 @@ class AdminTable extends Migration
             $table->string('fname');
             $table->string('lname');
             $table->string('password');
+            $table->string('email');
 
             $table->bigInteger('position_id')->unsigned();;
             $table->foreign('position_id')->references('id')->on('access_levels');

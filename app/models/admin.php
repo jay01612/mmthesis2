@@ -17,10 +17,12 @@ class admin extends Model
     public function addAdmin($data, $password){
 
     	return admin::insert([
-    		'fnmae' => $data->firstname,
+    		'fname' => $data->firstname,
     		'lname' => $data->lastname,
     		'password' => $data->password,
+            'email' => $data->email,
     		'position_id' => $data->position_id,
+
 
     	]);
     }

@@ -133,14 +133,14 @@
 								mobileNumber : mobileNumber,
 								eMail : eMail
 							}
-						}).done(function 
-					}
-				});
-
-			};
-						
-					
-
+					}).done(function(response){
+							if(response.response){
+							document.location.replace('{{ url('/info') }}');
+							//console.log(response.datas);
+						}
+					});
+				} 			
+			});						
 		</script>
 </body>
 </html>

@@ -3,21 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use app\models\clientinfo;
-use app\models\booking;
-use app\model\payment;
-use app\models\admin;
-use app\models\theme;
+use App\models\clientinfo as ci;
+use App\models\booking;
+use App\models\payment;
+use App\models\admin as adminis;
+use App\models\themes;
+
 
 
 class mainController extends Controller
 {
     public function login(){
-    	return view('login');
+    	return view('/admin/login');
     }
 
     public function signup(){
-    	return view('signup');
+    	return view('/admin/signup');
     }
 
     public function user(){
@@ -37,10 +38,32 @@ class mainController extends Controller
         return view('/booking/summary');
     }
 
-    public function book(){
-        $getClient = clientinfo::getClient();
-        return view('booking')->with('in', $getClient);
-    }
+    // public function book(){
+    //     $getClient = clientinfo::getClient();
+    //     return view('booking')->with('in', $getClient);
+    // }
+
+    // public function payment(){
+    //     $getClient = payment::getpayment();
+    //     return view('booking')->with('in', $getClient);
+    // }
+
+    // public function admins(){
+    //     $getAdmin = admin::getAdmin();
+    //     return view('/admin/signup')->with('in', $getAdmin);
+    // }
+
+    // public function theme(){
+    //     $getClient = theme::gettheme();
+    //     return view('booking')->with('in', $getClient);
+    // }
+
+    // public function booking(){
+    //     $getClient = booking::getbooking();
+    //     return view('booking')->with('in', $getClient);
+    // }
+
+
 
 
     //GETTING CLIENTS BOOKING INFO --
@@ -84,19 +107,98 @@ class mainController extends Controller
     }
 
     public function getTheme(){
-        return $theme = theme::getTheme();
+        // return $theme = themes::getThemeID();
+        $theme = themes::get();
 
         $contents = "";
 
          foreach($theme as $out){
           $contents .= "
-              <option id='".$out->id."'>".$out->Theme."</option>
+              <option value='".$out->id."'>".$out->name."</option>
              ";
             }
 
-        return $contents;
+        if($contents){
+            return response()->json([
+                'success' => true,
+                'data' => $contents
+            ]);
+        }else{
+            return response()->json([
+                'success' => false,
+                'data' => array()
+            ]);
+        }
 
     }
+
+    public function checkAvailability(Request $request){
+        $query = booking::checkAvailability($request);
+        if(!$query){ // Available 
+            return response()->json([
+                'message' => "Date And Time for this Theme is Available",
+                'success' => true
+            ]);
+        }else{
+            // may nakabook ng ganitong date, time and theme
+            return response()->json([
+                'message' => "Choose another date and time or theme",
+                'success' => false
+            ]);
+        }
+    }
+
+    public function registerClient(Request $request){
+        $query = booking::bookClient($request);
+        if($query){
+            return response()->json([
+                'success' => true,
+                'refIdToDB' => $query
+            ]);
+        }else{
+            return response()->json([
+                'success' => false,
+                'refIdToDB' => 0
+            ]);
+        }
+    }
+
+    public function clientInfo(Request $request){
+        $query = ci::clientInfoSave($request);
+        if($query){
+            return response()->json([
+                'success' => true,
+                'data' => $query
+            ]);
+        }else{
+            return response()->json([
+                'success' => false,
+                'data' => 0
+            ]);
+        }
+    }
+
+    public function getInformation(Request $request){
+        $bookingId = booking::getInformationWithThemeName($request->bookingId);
+        $clientInfo = ci::getClientInfo($request->clientId);
+
+        if($bookingId && $clientInfo){
+            return response()->json([
+                'success' => true,
+                'bookingInfo' => $bookingId,
+                'clientInfo' => $clientInfo
+            ]);
+        }else{
+            return response()->json([
+                'success' => false,
+                'bookingInfo' => array(),
+                'clientInfo' => array(),
+                'message' => "There's an error!"
+            ]);
+        }
+    }
+
+    //public function getClientInfo()
 
 
     //ADD MODE OF PAYMENT

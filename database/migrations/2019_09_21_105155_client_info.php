@@ -16,7 +16,7 @@ class ClientInfo extends Migration
         Schema::create('client_info', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->bigInteger('game_id')->unsigned();;
+            $table->bigInteger('game_id')->unsigned();
             $table->foreign('game_id')->references('id')->on('booking_table');
 
             $table->string('fname');

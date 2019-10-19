@@ -17,4 +17,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('nextStep', 'apiControllers@nextStep');
+// Route::post('nextStep', 'apiControllers@nextStep');
+Route::get('getThemes', 'mainController@getTheme');
+
+Route::post('checkAvailability', 'mainController@checkAvailability');
+
+//Booking
+Route::post('registerClient', 'mainController@registerClient');
+
+//Client Info Save
+Route::post('clientInfo', 'mainController@clientInfo');
+
+Route::get('getInformation', 'mainController@getInformation');
+
+//Route::post('signup', 'mainController@addUserAdmin');
