@@ -28,6 +28,32 @@
 		h1 {
 			letter-spacing: 0.1em;
 		}
+		/*#summaryContent {
+			border-bottom-color: black;
+			background: transparent;
+			border-top-color: transparent;
+			border-left-color: transparent;
+			border-right-color: transparent;
+			text-align: center;
+			border-radius: 10px;
+		}
+		input[type="text"], input[type="number"], input[type="email"] {
+			color: white;
+		}
+		input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+    		-webkit-appearance: none;
+    		margin: 0;
+    	}*/
+    	.agreement-content {
+			border: solid 2px #ccc;
+			overflow-y: scroll;
+    	}
+    	.card-header {
+    		background-color: #89c13e;
+    	}
+    	.card-footer {
+    		background-color: #167cf8;
+    	}
 	</style>
 </head>
 <body class="bg-dark">
@@ -190,13 +216,13 @@
 							<label for="mystery">Mystery:</label>
 						</div>
 						<div class="col-sm-4">
-							<input type="text" name="mystery" id="mystery" class="form-control" readonly>
+							<input type="text" name="mystery" id="mystery" class="form-control" id="summaryContent" readonly>
 						</div>
 						<div class="col-sm-2">
 							<label for="fn">First Name:</label>
 						</div>
 						<div class="col-sm-4">
-							<input type="text" name="firstName" id="firstNameSummary" class="form-control" readonly>
+							<input type="text" name="firstName" id="firstNameSummary" class="form-control" id="summaryContent" readonly>
 						</div>
 					</div>
 				</div>
@@ -207,13 +233,13 @@
 							<label for="date">Date:</label>
 						</div>
 						<div class="col-sm-4">
-							<input type="text" name="dateStart" id="dateStartSummary" class="form-control" readonly>
+							<input type="text" name="dateStart" id="dateStartSummary" class="form-control" id="summaryContent" readonly>
 						</div>
 						<div class="col-sm-2">
 							<label for="ln">Last Name:</label>
 						</div>
 						<div class="col-sm-4">
-							<input type="text" name="lastName" id="lastNameSummary" class="form-control" readonly>
+							<input type="text" name="lastName" id="lastNameSummary" class="form-control" id="summaryContent" readonly>
 						</div>
 					</div>
 				</div>
@@ -224,13 +250,13 @@
 							<label for="time">Time:</label>
 						</div>
 						<div class="col-sm-4">
-							<input type="text" name="timeStart" id="timeStartSummary" class="form-control" readonly>
+							<input type="text" name="timeStart" id="timeStartSummary" class="form-control" id="summaryContent" readonly>
 						</div>
 						<div class="col-sm-2">
 							<label for="mn">Mobile Number:</label>
 						</div>
 						<div class="col-sm-4">
-							<input type="text" name="mobileNumber" id="mobileNumberSummary" class="form-control" readonly>
+							<input type="text" name="mobileNumber" id="mobileNumberSummary" class="form-control" id="summaryContent" readonly>
 						</div>
 					</div>
 				</div>
@@ -241,13 +267,13 @@
 							<label for="maxpax">Group Size:</label>
 						</div>
 						<div class="col-sm-4">
-							<input type="text" name="maxPax" id="maxPaxSummary" class="form-control" readonly>
+							<input type="text" name="maxPax" id="maxPaxSummary" class="form-control" id="summaryContent" readonly>
 						</div>
 						<div class="col-sm-2">
 							<label for="venue">Venue:</label>
 						</div>
 						<div class="col-sm-4">
-							<input type="text" name="venueStart" id="venueStartSummary" class="form-control" readonly>
+							<input type="text" name="venueStart" id="venueStartSummary" class="form-control" id="summaryContent" readonly>
 						</div>
 					</div>
 				</div>
@@ -258,16 +284,34 @@
 							<label for="amount">Total Amount:</label>
 						</div>
 						<div class="col-sm-4">
-							<input type="text" name="amountTotal" id="amountTotal" class="form-control" readonly>
+							<input type="text" name="amountTotal" id="amountTotal" class="form-control"  id="summaryContent"readonly>
 						</div>
 						<div class="col-sm-2">
 							<label for="email">Email:</label>
 						</div>
 						<div class="col-sm-4">
-							<input type="text" name="eMail" id="eMail" class="form-control" readonly>
+							<input type="text" name="eMail" id="eMail" class="form-control" id="summaryContent" readonly>
 						</div>
 					</div>
 				</div>
+
+				<div class="col-md-12">
+					<div class="row">
+						<div class="col-md-4">
+							<label for="verificationcodeCode">Verification Code</label>
+						</div>
+						<div class="col-md-4">
+							<input type="text" class="form-control" id="verificationcodeCodeInput"/>
+						</div>
+						<div class="col-md-4">
+							<button type="button" id="verificationCodeBtn" class="btn btn-info">Verifiy</button>
+						</div>
+					</div>
+				</div>
+
+				<br/><br/>
+
+				<hr/>
 
 				<div class="terms"><br><br>
 					<div class="row">
@@ -342,6 +386,8 @@
 						</div>
 				</div>
 			</div>
+
+
 
 			<div class="btn-next"><br><br>
 				<div class="col-sm-12">
@@ -493,6 +539,29 @@
 				$(nextBtn).prop('disabled', false);
 			});
 
+			$(document).on('click', '#verificationCodeBtn', function(){
+				var verificationcodeCode = $('#verificationcodeCodeInput').val();
+
+				$.ajax({
+
+					url : "{{ url('api/verifycode') }}",
+					method : "POST",
+					data : {
+						code : verificationcodeCode,
+						clientId : clientInfoId
+					}
+
+				}).done(function(response){
+					if(response.success){
+						toastr.success(response.message);
+						
+					}else{
+						toastr.error(response.message);
+					}
+				});
+
+			});
+
 		});
 
 		function getThemes(){
@@ -533,29 +602,37 @@
 					$('#eMail').val(response.clientInfo.email);
 
 					var pax = response.bookingInfo.pax;
-
 					var paxMinus = pax - 8;
-
 					var total = parseInt(paxMinus) * parseInt(500);
-
 					var totalAll = parseInt(total) + parseInt(8000);
 					var getTax = parseInt(totalAll) * parseFloat(0.12);
-
 					var totalAmount = parseInt(totalAll) + parseFloat(getTax);
 
-					console.log("pax: " + pax);
-					console.log("paxMinus: " + paxMinus);
-					console.log("total: " + total);
-					console.log("total all: " + totalAll);
-					console.log("getTax: " + getTax);
-					console.log("total Amount: " + totalAmount);
-
 					$('#amountTotal').val(totalAmount);
+
+					sendVerification();
 
 				}else{
 					toastr.error(response.message);
 				}
 			});
+		}
+
+		function sendVerification(){
+			// clientInfoId
+			$.ajax({
+				url : "{{ url('api/sendVerification') }}",
+				method : "GET",
+				data : {
+					clientId : clientInfoId
+				}
+			}).done(function(response){
+				if(response.success){
+					toastr.info(response.message);	
+				}else{
+					alert(response.success);
+				}
+			});	
 		}
 
 	</script>

@@ -95,5 +95,35 @@ class clientinfo extends Model
         ->select('*')
         ->where('id', $data)
         ->get()->first();
-    }		       
+    }
+
+    public static function getVerification($data){
+        return $query = DB::connection('mysql')
+        ->table('client_info')
+        ->select('*')
+        ->where('id', $data)
+        ->get();
+    }
+
+    public static function verifyCode($data){
+        $query = DB::connection('mysql')
+        ->table('client_info')
+        ->where('id', $data->clientId)
+        ->where('verification_number', $data->code)
+        ->where('is_verified', 0)
+        ->get();
+
+        if($query){
+            $updateIsVerified = DB::connection('mysql')
+            ->table('client_info')
+            ->where('id', $data->clientId)
+            ->update([
+                'is_verified' => 1
+            ]);
+            return $updateIsVerified;
+        }else{
+            return false;
+        }
+
+    }
 }

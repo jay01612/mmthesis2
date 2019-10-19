@@ -8,7 +8,7 @@ use App\models\booking;
 use App\models\payment;
 use App\models\admin as adminis;
 use App\models\themes;
-
+use Nexmo;
 
 
 class mainController extends Controller
@@ -274,6 +274,51 @@ class mainController extends Controller
                 'message' => "There is an error"
             ]);
         }    
+    }
+
+    public function sendMessage(){
+        return Nexmo::message()->send([
+            'to'   => '639455090428',
+            'from' => '639051900576',
+            'text' => 'Using the facade to send a message.'
+        ]);
+    }
+
+    public function sendVerification(Request $request){
+        $getVerificationCode = ci::getVerification($request->clientId);
+
+        $query = Nexmo::message()->send([
+            'to' => '639051900576',
+            'from' => 'Mystery Manila',
+            'text' => "Your Verification Code Number is: " . $getVerificationCode[0]->verification_number
+        ]);
+
+        if($query){
+            return response()->json([
+                'success' => true,
+                'message' => "message sent successfully"
+            ]);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => "sending message failed"
+            ]);
+        }
+    }
+
+    public function verifycode(Request $request){
+        $verifyCode = ci::verifyCode($request);
+        if($verifyCode){
+            return response()->json([
+                'success' => true,
+                'message' => "Verification Successful"
+            ]);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => "Sorry, There's an error"
+            ]);
+        }
     }
 }
 
