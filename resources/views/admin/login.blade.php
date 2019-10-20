@@ -64,11 +64,11 @@
 
             <div class="labels">
               <div class="forgotPw">
-                <label for="pw" class="label-content" id="pw"><i>Forgot Password?</i></label>
+                <!-- <label for="pw" class="label-content" id="pw"><i>Forgot Password?</i></label> -->
               </div>
               
               <div class="signup">
-                <a href="{{ url('/signup') }}" id="signUp"><i>Sign up</i></a>
+                <!-- <a href="{{ url('/signup') }}" id="signUp"><i>Sign up</i></a> -->
               </div>
             </div>
 

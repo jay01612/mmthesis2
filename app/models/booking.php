@@ -66,5 +66,45 @@ class booking extends Model
         ->get()->first();
     }
 
+    public static function getBookedNotPayed(){
+        return $query = DB::connection('mysql')
+        ->table('booking_table as a')
+        ->select(
+            DB::raw("DATE_FORMAT(a.book_date, '%M %d, %Y') as date"),
+            DB::raw("TIME_FORMAT(a.book_time, '%h:%i %p') as time"),
+            'a.maxpax as pax',
+            'a.venue as venue',
+            DB::raw("CONCAT(b.lname, ', ', b.fname) as name"),
+            'b.mobile_number as mobilenumber',
+            'b.email as email',
+            'c.name as theme'
+        )
+        ->join('client_info as b', 'a.id', '=', 'b.game_id')
+        ->join('themes as c', 'a.theme_id', '=', 'c.id')
+        ->where('b.is_verified', 0)
+        ->where('a.is_booked', 0)
+        ->get();
+    }
+
+    public static function getBookedNotPayed1(){
+        return $query = DB::connection('mysql')
+        ->table('booking_table as a')
+        ->select(
+            DB::raw("DATE_FORMAT(a.book_date, '%M %d, %Y') as date"),
+            DB::raw("TIME_FORMAT(a.book_time, '%h:%i %p') as time"),
+            'a.maxpax as pax',
+            'a.venue as venue',
+            DB::raw("CONCAT(b.lname, ', ', b.fname) as name"),
+            'b.mobile_number as mobilenumber',
+            'b.email as email',
+            'c.name as theme'
+        )
+        ->join('client_info as b', 'a.id', '=', 'b.game_id')
+        ->join('themes as c', 'a.theme_id', '=', 'c.id')
+        ->where('b.is_verified', 1)
+        ->where('a.is_booked', 0)
+        ->get();
+    }
+
     
 }

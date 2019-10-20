@@ -34,4 +34,11 @@ Route::get('sendVerification', 'mainController@sendVerification');
 
 Route::post('verifycode', 'mainController@verifycode');
 
+// login
+Route::post('login', 'apiController@login');
+Route::get('logout', 'apiController@logout');
+
+Route::get('getBookedNotPayed', 'apiController@getBookedNotPayed');
+Route::get('getBookedNotPayed1', 'apiController@getBookedNotPayed1');
+
 //Route::post('signup', 'mainController@addUserAdmin');

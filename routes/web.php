@@ -14,17 +14,24 @@
 
 
 Route::get('/', 'mainController@user');
-
-Route::get('test', 'mainController@booking');
-
-Route::get('test', 'booking@hello');
-
-Route::get('/signup', 'mainController@signup');
-
-Route::get('/login', 'mainController@login');
-
+// Route::get('test', 'mainController@booking');
+// Route::get('test', 'booking@hello');
+// Route::get('/signup', 'mainController@signup');
+// Route::get('/login', 'mainController@login');
 Route::get('/booking', 'mainController@booking');
-
 Route::get('/info', 'mainController@info');
-
 Route::get('/summary', 'mainController@summary');
+
+// login admin check routes
+Route::group(['middleware' => ['preventbackhistory']], function () {
+
+    Route::group(['middleware' => ['checkislogin']], function () {
+        Route::get('/login', 'apiController@index');
+        Route::get('/login', 'apiController@index')->name('login');
+    });
+    
+    Route::group(['middleware' => ['checkisuser']], function () {
+        Route::get('/reports', 'pageController@index');
+    });
+
+});
