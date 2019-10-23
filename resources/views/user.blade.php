@@ -18,6 +18,7 @@
 			height: 100%;
 			width: 100%;
 			font-family: 'Nunito', sans-serif;
+			scroll-behavior: smooth;
 		}
 		.parallax-window{
 			display: table;
@@ -113,13 +114,13 @@
 					<a class="nav-link active" href="#">Home</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Themes</a>
+					<a class="nav-link" href="#theme">Themes</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">FAQs</a>
+					<a class="nav-link" href="#faqs">FAQs</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="#">Contacts</a>
+					<a class="nav-link" href="#footer">Contacts</a>
 				</li>
 			</ul>
 		</div>
@@ -194,15 +195,16 @@ Is it the mild-mannered doctor, the wise judge, the flirtatious maid, or the loy
 		</div>
 	</div>
 
-	<h1 class="display-4 text-center mt-5">Frequently Asked Questions</h1>
+	<h1 class="display-4 text-center mt-5" id="faqs">Frequently Asked Questions</h1>
 	<hr class="my-1">
 	<div class="row">
 		<div class="col-sm-12 text-center">
 			<h3 class="display-5 mt-5"><u>How to book?</u></h3>
 			<p id="faqs-content">Choose your mystery <br> 
-				Finalize the date, time, venue, and headcount of participants
+				Finalize the date, time, venue, and headcount of participants<br>
+				Booking must be <strong>1 week before the event</strong> if you book less than a week there will be a rush fee <strong>(3,000 PHP)</strong>.<br>
 				<br>
-				Email: info@murdermanila.com
+				<!-- Email: info@murdermanila.com -->
 			</p>
 		</div>
 		<div class="col-sm-12 text-center">
