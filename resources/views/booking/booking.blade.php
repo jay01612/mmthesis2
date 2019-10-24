@@ -71,7 +71,8 @@
 			<hr class="my-1"><br/>
 			<!-- <form> -->
 				<div class="form-group text-white mb-5">
-					<input class="form-control" type="date" id="dateStart"/>
+					<input class="form-control" type="date" id="dateStart" placeholder="mm/dd/yyyy"/>
+					<small id="dateStart" class="form-text text-muted text-white"><i>please input your preferred date (format: mm/dd/yyyy)</i></small>
 				</div>
 			<!-- </form> -->
 		</div>
@@ -81,12 +82,13 @@
 			<hr class="my-1"><br/>
 			<!-- <form> -->
 				<div class="form-group">
-					<input class="form-control" type="time" id="timeStart"/>
+					<input class="form-control" type="time" id="timeStart" placeholder="00:00AM/PM"/>
+					<small id="timeStart" class="form-text text-muted"><i>please input your preferred time (format: 00:00AM/PM)</i></small>
 			<!-- </form> -->
 		</div>
 	</div>
 
-	<div class="col-md-12"><br>
+	<div class="col-md-12 mb-5"><br>
 		<h1 class="display-5 text-white ">SELECT YOUR THEME</h1>
 		<hr class="my-1"/>
 		<select id="themes" class="form-control">
@@ -101,6 +103,7 @@
 	<!-- <form> -->
 		<div class="form-group">
 			<input type="number" name="maxPax" id="maxPax" class="form-control" disabled />
+			<small id="maxPax" class="form-text text-muted"><i>minimum of 8, maximum of 60</i></small>
 		</div>
 	<!-- </form> -->
 </div>
