@@ -102,7 +102,7 @@ class mainController extends Controller
         }else{
             return response() ->json([
                 'success' => false,
-                'message' => 'There is someting wrong!'
+                'message' => 'There is something wrong!'
             ]);
         } 
     }
@@ -137,7 +137,7 @@ class mainController extends Controller
         $query = booking::checkAvailability($request);
         if(!$query){ // Available 
             return response()->json([
-                'message' => "Date And Time for this Theme is Available",
+                'message' => "Date And Time for this Theme is available",
                 'success' => true
             ]);
         }else{
@@ -165,6 +165,8 @@ class mainController extends Controller
     }
 
     public function clientInfo(Request $request){
+
+
         $query = ci::clientInfoSave($request);
         if($query){
             return response()->json([
@@ -257,7 +259,7 @@ class mainController extends Controller
         }else{
             return response() ->json([
                 'response' => false,
-                'message' => "there is something wrong"
+                'message' => "There is something wrong"
             ]);
         }
     }
@@ -297,12 +299,12 @@ class mainController extends Controller
         if($query){
             return response()->json([
                 'success' => true,
-                'message' => "message sent successfully"
+                'message' => "Message sent successfully"
             ]);
         }else{
             return response()->json([
                 'success' => false,
-                'message' => "sending message failed"
+                'message' => "Sending message failed"
             ]);
         }
     }
@@ -327,7 +329,7 @@ class mainController extends Controller
         }else{
             return response()->json([
                 'success' => false,
-                'message' => "Sorry, There's an error"
+                'message' => "Sorry, there's an error"
             ]);
         }
     }
@@ -344,14 +346,6 @@ class mainController extends Controller
             'maxPax' => $request->maxPax,
             'venue' => $request->venue,
             'amount' => $request->totalAmount
-            // 'name'=> "Bruce Bruce", 
-            // 'referenceNumber' => "213213213213", 
-            // 'mobileNumber' => "123213123213",
-            // 'dateStart' => "asdasdsad",
-            // 'timeStart' => "123123213",
-            // 'maxPax' => "12",
-            // 'venue' => "Mandaluyong",
-            // "amount" => "8000"
         );
         Mail::send('template', $data, function($message) use ($to_name, $to_email) {
             $message->to($to_email, $to_name)

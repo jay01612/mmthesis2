@@ -127,7 +127,7 @@
 	<div class="container-fluid text-center">
 		<img src="mmlogo.png" width="200" height="200" class="img-fluid">
 		<div class="progress">
-  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 </div>
 
 		<div class="col-sm-12 mt-5">
@@ -198,7 +198,7 @@
 	<div class="container-fluid text-center">
 			<img src="mmlogo.png" width="200" height="200" class="img-fluid">
 			<div class="progress">
-	  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+	  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 			</div>
 
 			<div class="summary"><br>
@@ -259,7 +259,7 @@
 							<label for="mn">Mobile Number:</label>
 						</div>
 						<div class="col-sm-4">
-							<input type="text" name="mobileNumber" id="mobileNumberSummary" class="form-control" id="summaryContent" readonly>
+							<input type="number" name="mobileNumber" id="mobileNumberSummary" class="form-control" id="summaryContent" readonly>
 						</div>
 					</div>
 				</div>
@@ -297,8 +297,8 @@
 						</div>
 					</div>
 				</div>
-
-				<div class="col-md-12">
+				<br>
+				<div class="col-md-12 mt-5">
 					<div class="row">
 						<div class="col-md-4">
 							<label for="verificationcodeCode">Verification Code</label>
@@ -307,7 +307,7 @@
 							<input type="text" class="form-control" id="verificationcodeCodeInput"/>
 						</div>
 						<div class="col-md-4">
-							<button type="button" id="verificationCodeBtn" class="btn btn-info">Verifiy</button>
+							<button type="button" id="verificationCodeBtn" class="btn btn-info">Verify</button>
 						</div>
 					</div>
 				</div>
@@ -364,7 +364,7 @@
 					</div>
 				</div>
 
-			<div class="payment"><br><br>
+			<!-- <div class="payment"><br><br>
 				<div class="col-sm-12">
 				<h1 class="display-5 text-center">PAYMENT</h1>
 				<hr class="my-1">
@@ -388,7 +388,7 @@
 						  </div>
 						</div>
 				</div>
-			</div>
+			</div> -->
 
 
 
@@ -488,7 +488,6 @@
 					}else{
 						toastr.error("Date Should Be: " + dateToCheck + " Or Onwards");
 					}
-					
 				}else{
 					toastr.error("Date And Time Should Not Be Empty!");
 				}
@@ -536,7 +535,7 @@
 						toastr.error("Max Pax Exceed to limit Min Head Count: 8 and Max Head Count: 60");
 					}
 				}else{
-					toastr.error("Please fill out the fileds!");
+					toastr.error("Please fill out the fields!");
 				}
 
 			});
@@ -546,30 +545,36 @@
 				lastname = $('#lastName').val();
 				mobilenumber = $('#mobileNumber').val();
 				email = $('#email').val();
-
+				var hasNumber = /\d/;
 				if((firstname != '') && (lastname != '') && (mobilenumber != '') && (email != '')){
-					$.ajax({
-						url : "{{ url('api/clientInfo') }}",
-						type: "POST",
-						data: {
-							firstname : firstname,
-							lastname : lastname,
-							mobilenumber : mobilenumber,
-							email : email,
-							refId : refId
-						},
-						beforeSend: function(){
-							toastr.info("Please Wait..");
-						}
-					}).done(function(response){
-						// console.log(response);
-						if(response.success){
-							clientInfoId = response.data;
-							$('#clientInfo').prop('hidden', true);
-							$('#summary').prop('hidden', false);
-							getInformation();
-						}
-					});
+					if(hasNumber.test(firstname) || hasNumber.test(lastname)){
+						toastr.error("Firstname and Lastname should not have a numeric value!");
+					}else{
+						$.ajax({
+							url : "{{ url('api/clientInfo') }}",
+							type: "POST",
+							data: {
+								firstname : firstname,
+								lastname : lastname,
+								mobilenumber : mobilenumber,
+								email : email,
+								refId : refId
+							},
+							beforeSend: function(){
+								// toastr.info("Please Wait..");
+							}
+						}).done(function(response){
+							// console.log(response);
+							if(response.success){
+								clientInfoId = response.data;
+								$('#clientInfo').prop('hidden', true);
+								$('#summary').prop('hidden', false);
+								getInformation();
+							}
+						});
+					}
+					
+					
 				}else{
 					toastr.error("Please Fill out the Fields!");
 				}
@@ -605,6 +610,8 @@
 
 			});
 
+
+
 		});
 
 		function sendEmail(){
@@ -625,7 +632,7 @@
 					totalAmount : totalAmount
 				}
 			}).done(function(response){
-
+				toastr.message("Email has been sent to your email: " + email);
 			});
 		}
 
