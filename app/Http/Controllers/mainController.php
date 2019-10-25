@@ -9,7 +9,8 @@ use App\models\payment;
 use App\models\admin as adminis;
 use App\models\themes;
 use Nexmo;
-
+use DB;
+use Illuminate\Support\Facades\Mail;
 
 class mainController extends Controller
 {
@@ -307,8 +308,18 @@ class mainController extends Controller
     }
 
     public function verifycode(Request $request){
+
         $verifyCode = ci::verifyCode($request);
-        if($verifyCode){
+
+        if(!blank($verifyCode)){
+
+            $updateIsVerified = DB::connection('mysql')
+            ->table('client_info')
+            ->where('id', $request->clientId)
+            ->update([
+                'is_verified' => 1
+            ]);
+
             return response()->json([
                 'success' => true,
                 'message' => "Verification Successful"
@@ -319,6 +330,34 @@ class mainController extends Controller
                 'message' => "Sorry, There's an error"
             ]);
         }
+    }
+
+    public function sendEmail(Request $request){
+        $to_name = $request->firstname . " " . $request->lastname;
+        $to_email = $request->email;
+        $data = array(
+            'name' => $request->lastname . ", " . $request->firstname, 
+            'referenceNumber' => $request->refId,
+            'mobileNumber' => $request->mobilenumber,
+            'dateStart' => $request->dateStart,
+            'timeStart' => $request->timeStart,
+            'maxPax' => $request->maxPax,
+            'venue' => $request->venue,
+            'amount' => $request->totalAmount
+            // 'name'=> "Bruce Bruce", 
+            // 'referenceNumber' => "213213213213", 
+            // 'mobileNumber' => "123213123213",
+            // 'dateStart' => "asdasdsad",
+            // 'timeStart' => "123123213",
+            // 'maxPax' => "12",
+            // 'venue' => "Mandaluyong",
+            // "amount" => "8000"
+        );
+        Mail::send('template', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)
+                    ->subject('Murder Manila');
+            $message->from('ppotdota@gmail.com','Murder Manila');
+        });
     }
 }
 

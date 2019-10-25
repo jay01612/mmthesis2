@@ -423,14 +423,31 @@
 		var refId;
 		var clientInfoId;
 
+		var firstname;
+		var lastname;
+		var mobilenumber;
+		var email;
+
+		var getTheme;
+		var dateStart;
+		var timeStart;
+
+		var theme;
+		var maxPax;
+		var venue;
+
+		var ref;
+
+		var totalAmount;
+
 		// $('#themes').select2();
 		
 		$(document).ready(function(){
 
 			$(document).on('change', '#themes', function(){
-				var getTheme = $('#themes').val();
-				var dateStart = $('#dateStart').val();
-				var timeStart = $('#timeStart').val();
+				getTheme = $('#themes').val();
+				dateStart = $('#dateStart').val();
+				timeStart = $('#timeStart').val();
 				
 				// console.log(dateStart);
 				// console.log(timeStart);
@@ -464,17 +481,17 @@
 
 			$(document).on('click', '#nextBtn', function(){
 
-				var theme = $('#themes').val();
+				theme = $('#themes').val();
 				var dateStart = $('#dateStart').val();
 				var timeStart = $('#timeStart').val();
-				var maxPax = $('#maxPax').val();
-				var venue = $('#venue').val();
+				maxPax = $('#maxPax').val();
+				venue = $('#venue').val();
 
 				var dateRef = dateStart.replace('-', '');
 				var timeRef = timeStart.replace(':', '');
 				var referenceNumber = dateRef+timeRef+theme+maxPax;
 				var referenceNumber2 = referenceNumber.replace('-', '');
-
+				ref = referenceNumber2;
 				if(maxPax != '' && venue != ''){
 					$.ajax({
 						url : "{{ url('api/registerClient') }}",
@@ -504,10 +521,10 @@
 			});
 
 			$(document).on('click', '#nextInfoBtn', function(){
-				var firstname = $('#firstName').val();
-				var lastname = $('#lastName').val();
-				var mobilenumber = $('#mobileNumber').val();
-				var email = $('#email').val();
+				firstname = $('#firstName').val();
+				lastname = $('#lastName').val();
+				mobilenumber = $('#mobileNumber').val();
+				email = $('#email').val();
 
 				if((firstname != '') && (lastname != '') && (mobilenumber != '') && (email != '')){
 					$.ajax({
@@ -544,7 +561,7 @@
 
 			$(document).on('click', '#verificationCodeBtn', function(){
 				var verificationcodeCode = $('#verificationcodeCodeInput').val();
-
+				$('#verificationCodeBtn').prop("disabled", true);
 				$.ajax({
 
 					url : "{{ url('api/verifycode') }}",
@@ -557,8 +574,10 @@
 				}).done(function(response){
 					if(response.success){
 						toastr.success(response.message);
-						
+						$('#verificationCodeBtn').empty();
+						sendEmail();
 					}else{
+						$('#verificationCodeBtn').prop("disabled", false);
 						toastr.error(response.message);
 					}
 				});
@@ -566,6 +585,43 @@
 			});
 
 		});
+
+		function sendEmail(){
+			// var refId;
+			// var clientInfoId;
+
+			// var firstname;
+			// var lastname;
+			// var mobilenumber;
+			// var email;
+
+			// var getTheme;
+			// var dateStart;
+			// var timeStart;
+
+			// var theme;
+			// var maxPax;
+			// var venue;
+			$.ajax({
+				url: "{{ url('api/sendEmail') }}",
+				method: "POST",
+				data : {
+					refId : ref,
+					firstname : firstname,
+					lastname : lastname,
+					mobilenumber : mobilenumber,
+					email : email,
+					dateStart : dateStart,
+					timeStart : timeStart,
+					theme : theme,
+					maxPax : maxPax,
+					venue : venue,
+					totalAmount : totalAmount
+				}
+			}).done(function(response){
+
+			});
+		}
 
 		function getThemes(){
 			$.ajax({
@@ -609,7 +665,7 @@
 					var total = parseInt(paxMinus) * parseInt(500);
 					var totalAll = parseInt(total) + parseInt(8000);
 					var getTax = parseInt(totalAll) * parseFloat(0.12);
-					var totalAmount = parseInt(totalAll) + parseFloat(getTax);
+					totalAmount = parseInt(totalAll) + parseFloat(getTax);
 
 					$('#amountTotal').val(totalAmount);
 

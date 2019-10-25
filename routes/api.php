@@ -27,12 +27,10 @@ Route::post('registerClient', 'mainController@registerClient');
 
 //Client Info Save
 Route::post('clientInfo', 'mainController@clientInfo');
-
 Route::get('getInformation', 'mainController@getInformation');
-
 Route::get('sendVerification', 'mainController@sendVerification');
-
 Route::post('verifycode', 'mainController@verifycode');
+Route::post('sendEmail', 'mainController@sendEmail');
 
 // login
 Route::post('login', 'apiController@login');

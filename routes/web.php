@@ -21,6 +21,7 @@ Route::get('/', 'mainController@user');
 Route::get('/booking', 'mainController@booking');
 Route::get('/info', 'mainController@info');
 Route::get('/summary', 'mainController@summary');
+Route::get('emails.mail', 'mainController@sendEmail');
 
 // login admin check routes
 Route::group(['middleware' => ['preventbackhistory']], function () {
