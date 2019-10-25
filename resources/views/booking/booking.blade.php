@@ -472,7 +472,6 @@
 								date: dateStart,
 								time: timeStart
 							},
-
 							beforeSend: function(){
 								toastr.info("Please wait checking availability");
 							}
@@ -486,8 +485,12 @@
 								toastr.error(response.message);
 							}
 						});
+					}else{
+						toastr.error("Date Should Be: " + dateToCheck + " Or Onwards");
 					}
 					
+				}else{
+					toastr.error("Date And Time Should Not Be Empty!");
 				}
 
 			});
