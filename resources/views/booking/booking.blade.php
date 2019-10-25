@@ -439,6 +439,7 @@
 		var ref;
 
 		var totalAmount;
+		var dateToCheck;
 
 		// $('#themes').select2();
 		
@@ -447,34 +448,46 @@
 			$(document).on('change', '#themes', function(){
 				getTheme = $('#themes').val();
 				dateStart = $('#dateStart').val();
+				console.log(dateStart);
 				timeStart = $('#timeStart').val();
-				
-				// console.log(dateStart);
-				// console.log(timeStart);
-
+				var dateNow = new Date();
+				dateNow.setDate(dateNow.getDate() + 7);
+				var toStringDateNow = dateNow.toString();
+				var splitDate = toStringDateNow.split(' ');
+				month1 = splitDate[1].toLowerCase();
+				var months = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+				month1 = months.indexOf(month1)+1;
+				console.log(month1);
+				dateToCheck = splitDate[3]+ "-" + splitDate[2] + "-" + month1;
+				// console.log(dateToCheck);
 				if(dateStart != '' && timeStart != ''){
-					$.ajax({
-						url: "{{ url('api/checkAvailability') }}",
-						type: "POST",
-						data: {
-							theme: getTheme,
-							date: dateStart,
-							time: timeStart
-						},
+					if(new Date(dateStart) < new Date()){
+						toastr.error("Date Should Be: " + dateToCheck + " Or Onwards");
+					}else if(new Date(dateStart) > dateNow){
+						$.ajax({
+							url: "{{ url('api/checkAvailability') }}",
+							type: "POST",
+							data: {
+								theme: getTheme,
+								date: dateStart,
+								time: timeStart
+							},
 
-						beforeSend: function(){
-							toastr.info("Please wait checking availability");
-						}
-					}).done(function(response){
-						if(response.success){
-							toastr.success(response.message);
-							$('#maxPax').prop('disabled', false);
-							$('#venue').prop('disabled', false);
-							$('#nextBtn').prop('disabled', false);
-						}else{
-							toastr.error(response.message);
-						}
-					});
+							beforeSend: function(){
+								toastr.info("Please wait checking availability");
+							}
+						}).done(function(response){
+							if(response.success){
+								toastr.success(response.message);
+								$('#maxPax').prop('disabled', false);
+								$('#venue').prop('disabled', false);
+								$('#nextBtn').prop('disabled', false);
+							}else{
+								toastr.error(response.message);
+							}
+						});
+					}
+					
 				}
 
 			});
@@ -492,28 +505,33 @@
 				var referenceNumber = dateRef+timeRef+theme+maxPax;
 				var referenceNumber2 = referenceNumber.replace('-', '');
 				ref = referenceNumber2;
+
 				if(maxPax != '' && venue != ''){
-					$.ajax({
-						url : "{{ url('api/registerClient') }}",
-						type: "POST",
-						data: {
-							theme: theme,
-							date: dateStart,
-							time: timeStart,
-							pax: maxPax,
-							venue: venue,
-							referenceNumber: referenceNumber2
-						},
-						beforeSend: function(){
-							toastr.info("Please Wait...");
-						}
-					}).done(function(response){
-						if(response.success){
-							$('#bookingDiv').prop('hidden', true);
-							$('#clientInfo').prop('hidden', false);
-							refId = response.refIdToDB;
-						}
-					});
+					if((maxPax > 8) && (maxPax <= 60)){
+						$.ajax({
+							url : "{{ url('api/registerClient') }}",
+							type: "POST",
+							data: {
+								theme: theme,
+								date: dateStart,
+								time: timeStart,
+								pax: maxPax,
+								venue: venue,
+								referenceNumber: referenceNumber2
+							},
+							beforeSend: function(){
+								toastr.info("Please Wait...");
+							}
+						}).done(function(response){
+							if(response.success){
+								$('#bookingDiv').prop('hidden', true);
+								$('#clientInfo').prop('hidden', false);
+								refId = response.refIdToDB;
+							}
+						});
+					}else{
+						toastr.error("Max Pax Exceed to limit Min Head Count: 8 and Max Head Count: 60");
+					}
 				}else{
 					toastr.error("Please fill out the fileds!");
 				}
@@ -587,21 +605,6 @@
 		});
 
 		function sendEmail(){
-			// var refId;
-			// var clientInfoId;
-
-			// var firstname;
-			// var lastname;
-			// var mobilenumber;
-			// var email;
-
-			// var getTheme;
-			// var dateStart;
-			// var timeStart;
-
-			// var theme;
-			// var maxPax;
-			// var venue;
 			$.ajax({
 				url: "{{ url('api/sendEmail') }}",
 				method: "POST",
